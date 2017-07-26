@@ -18,10 +18,15 @@ export class LogFormComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.logService.addAccessItem(form.value.person, form.value.message);
-    form.resetForm();
+    this.showLogs();
 
-    // show flash message
+    // Clear form and show the flashes
+    form.resetForm();
     this.showFlashes = true;
     setTimeout(() => {this.showFlashes = false}, 3000);
+  }
+
+  showLogs() {
+    console.table(this.logService.getAccessLog());
   }
 }
