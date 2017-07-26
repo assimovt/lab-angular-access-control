@@ -1,0 +1,37 @@
+<form (ngSubmit)="onSubmit(logForm)" #logForm="ngForm" novalidate>
+  <div [hidden]="!showFlashes">
+    Thanks, the log entry has been submitted!
+  </div>
+  
+  <fieldset>
+    <legend>Add access log</legend>
+    <div class='form-group'>
+      <label for='person'>Person</label>
+      <input type='text' 
+             name='person' 
+             ngModel
+             required
+             #myPerson='ngModel'>
+
+      <div *ngIf='myPerson.errors && (myPerson.dirty || myPerson.touched)'>
+        <p [hidden]='!myPerson.errors.required' class='form-error'>
+          Person is required
+        </p>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <label for='message'>Message</label>
+      <input type='text' 
+             name='message' 
+             required 
+             [(ngModel)]='message'
+             #myMessage='ngModel'>
+      <p [hidden]='myMessage.valid || myMessage.pristine' class='form-error'>
+        Message is required
+      </p>
+    </div>
+  </fieldset>
+  
+  <button type='submit' [disabled]="!logForm.valid">Submit</button>
+</form>
